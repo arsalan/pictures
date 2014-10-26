@@ -36,6 +36,7 @@ namespace ImageOrganizer.DataStore
             if (album != null)
             {
                 album.Pictures.Add(picture);
+                album.PictureCount = album.Pictures.Count;
                 return picture.Id;
             }
             return Guid.Empty;
@@ -65,6 +66,7 @@ namespace ImageOrganizer.DataStore
                 if (toRemove != null)
                 {
                     album.Pictures.Remove(toRemove);
+                    album.PictureCount = album.Pictures.Count;
                 }
             }
         }
@@ -129,6 +131,7 @@ namespace ImageOrganizer.DataStore
                 toUpdate.Description = pictureAlbum.Description;
                 toUpdate.Tags = pictureAlbum.Tags;
                 toUpdate.Pictures = pictureAlbum.Pictures;
+                toUpdate.PictureCount = pictureAlbum.Pictures.Count;
             }
             return pictureAlbum.Id;
         }

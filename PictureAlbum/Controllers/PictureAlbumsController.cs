@@ -46,7 +46,7 @@ namespace ImageOrganizer.Controllers
         [ResponseType(typeof(PictureAlbum))]
         public async Task<IHttpActionResult> GetPictureAlbum(Guid pictureAlbumId)
         {
-            var fetchTask = new Task<PictureAlbum>(() => this.PictureAlbumsRepository.GetPictureAlbum(pictureAlbumId));
+            var fetchTask = new Task<dynamic>(() => this.PictureAlbumsRepository.GetPictureAlbum(pictureAlbumId));
             fetchTask.Start();
             var album = await fetchTask;
             if (album == null)
@@ -80,7 +80,7 @@ namespace ImageOrganizer.Controllers
         {
             if (ModelState.IsValid && pictureAlbum != null)
             {
-                var fetchTask = new Task<PictureAlbum>(() => this.PictureAlbumsRepository.GetPictureAlbum(pictureAlbumId));
+                var fetchTask = new Task<dynamic>(() => this.PictureAlbumsRepository.GetPictureAlbum(pictureAlbumId));
                 fetchTask.Start();
                 var album = await fetchTask;
 

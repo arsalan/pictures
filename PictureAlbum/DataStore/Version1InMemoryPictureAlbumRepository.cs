@@ -35,7 +35,8 @@ namespace ImageOrganizer.DataStore
 
         public override dynamic GetPictureAlbum(Guid pictureAlbumId)
         {
-            return base.GetPictureAlbum(pictureAlbumId);
+            var album = base.GetPictureAlbum(pictureAlbumId) as PictureAlbum;
+            return new { Id = album.Id, Name = album.Name, Description = album.Description };
         }
 
         public override IQueryable<dynamic> GetPictureAlbums(string name = "", ICollection<string> tags = null)

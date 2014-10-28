@@ -131,7 +131,7 @@ namespace ImageOrganizer.DataStore
                 toUpdate.Description = pictureAlbum.Description;
                 toUpdate.Tags = pictureAlbum.Tags;
                 toUpdate.Pictures = pictureAlbum.Pictures;
-                toUpdate.PictureCount = pictureAlbum.Pictures.Count;
+                toUpdate.PictureCount = pictureAlbum.Pictures != null ? pictureAlbum.Pictures.Count : 0;
             }
             return pictureAlbum.Id;
         }

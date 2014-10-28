@@ -38,8 +38,8 @@ namespace ImageOrganizer
 
             config.Routes.MapHttpRoute(
                 name: "PictureAlbum",
-                routeTemplate: "api/{controller}/{pictureAlbumId}",
-                defaults: new { pictureAlbumId = RouteParameter.Optional, version = 0 }
+                routeTemplate: "api/v{version}/{controller}/{pictureAlbumId}",
+                defaults: new { pictureAlbumId = RouteParameter.Optional }
             );
         }
     }

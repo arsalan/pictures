@@ -8,7 +8,7 @@ namespace ImageOrganizer
     {
         public ControllerRegistry()
         {
-            For<IPictureAlbumsRepository>().Use<InMemoryPicturealbumRepository>();
+            For<IPictureAlbumsRepository>().Use<Version1InMemoryPictureAlbumRepository>();
         }
     }
 }

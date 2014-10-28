@@ -6,9 +6,9 @@ using System.Web;
 
 namespace ImageOrganizer.DataStore
 {
-    public class InMemoryPicturealbumRepository : IPictureAlbumsRepository
+    public class InMemoryPictureAlbumRepository : IPictureAlbumsRepository
     {
-        public IQueryable<Picture> GetPictures(Guid pictureAlbumId)
+        public virtual IQueryable<Picture> GetPictures(Guid pictureAlbumId)
         {
             var album = InMemoryDataStore.PictureAlbums.FirstOrDefault(a => a.Id == pictureAlbumId);
             if (album != null)
@@ -18,7 +18,7 @@ namespace ImageOrganizer.DataStore
             return null;
         }
 
-        public Picture GetPicture(Guid pictureAlbumId, Guid pictureId)
+        public virtual Picture GetPicture(Guid pictureAlbumId, Guid pictureId)
         {
             var album = InMemoryDataStore.PictureAlbums.FirstOrDefault(a => a.Id == pictureAlbumId);
             if (album != null)
@@ -28,7 +28,7 @@ namespace ImageOrganizer.DataStore
             return null;
         }
 
-        public Guid AddPicture(Guid pictureAlbumId, Picture picture)
+        public virtual Guid AddPicture(Guid pictureAlbumId, Picture picture)
         {
             picture.Id = Guid.NewGuid();
             picture.ParentAlbumId = pictureAlbumId;
@@ -42,7 +42,7 @@ namespace ImageOrganizer.DataStore
             return Guid.Empty;
         }
 
-        public Guid UpdatePicture(Guid pictureAlbumId, Picture picture)
+        public virtual Guid UpdatePicture(Guid pictureAlbumId, Picture picture)
         {
             var album = InMemoryDataStore.PictureAlbums.FirstOrDefault(a => a.Id == pictureAlbumId);
             var toUpdate = album.Pictures.FirstOrDefault(p => p.Id == picture.Id);
@@ -57,7 +57,7 @@ namespace ImageOrganizer.DataStore
             return Guid.Empty;
         }
 
-        public void DeletePicture(Guid pictureAlbumId, Guid pictureId)
+        public virtual void DeletePicture(Guid pictureAlbumId, Guid pictureId)
         {
             var album = InMemoryDataStore.PictureAlbums.FirstOrDefault(a => a.Id == pictureAlbumId);
             if (album != null)
@@ -71,7 +71,7 @@ namespace ImageOrganizer.DataStore
             }
         }
 
-        public IQueryable<PictureAlbum> GetPictureAlbums(string name = "", ICollection<string> tags = null)
+        public virtual IQueryable<dynamic> GetPictureAlbums(string name = "", ICollection<string> tags = null)
         {
             if (string.IsNullOrWhiteSpace(name) && tags == null)
             {
@@ -110,19 +110,19 @@ namespace ImageOrganizer.DataStore
             return new List<PictureAlbum>().AsQueryable();
         }
 
-        public PictureAlbum GetPictureAlbum(Guid pictureAlbumId)
+        public virtual dynamic GetPictureAlbum(Guid pictureAlbumId)
         {
             return InMemoryDataStore.PictureAlbums.FirstOrDefault(a => a.Id == pictureAlbumId);
         }
 
-        public Guid AddPictureAlbum(PictureAlbum pictureAlbum)
+        public virtual Guid AddPictureAlbum(PictureAlbum pictureAlbum)
         {
             pictureAlbum.Id = Guid.NewGuid();
             InMemoryDataStore.PictureAlbums.Add(pictureAlbum);
             return pictureAlbum.Id;
         }
 
-        public Guid UpdatePictureAlbum(PictureAlbum pictureAlbum)
+        public virtual Guid UpdatePictureAlbum(PictureAlbum pictureAlbum)
         {
             var toUpdate = InMemoryDataStore.PictureAlbums.FirstOrDefault(a => a.Id == pictureAlbum.Id);
             if (toUpdate != null)
@@ -136,7 +136,7 @@ namespace ImageOrganizer.DataStore
             return pictureAlbum.Id;
         }
 
-        public void DeletePictureAlbum(Guid pictureAlbumId)
+        public virtual void DeletePictureAlbum(Guid pictureAlbumId)
         {
             var toDelete = InMemoryDataStore.PictureAlbums.FirstOrDefault(a => a.Id == pictureAlbumId);
             InMemoryDataStore.PictureAlbums.Remove(toDelete);

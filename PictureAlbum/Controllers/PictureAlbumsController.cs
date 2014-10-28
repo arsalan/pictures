@@ -24,21 +24,29 @@ namespace ImageOrganizer.Controllers
             this.pictureAlbumsRepository = pictureAlbumsRepository;
         }
 
-        // GET: api/PictureAlbums
-        public IQueryable<dynamic> GetPictureAlbums(int version = 0)
+        public virtual IPictureAlbumsRepository PictureAlbumsRepository
         {
-            if (version == 1)
+            get
             {
-                return this.pictureAlbumsRepository.GetPictureAlbums().Select(a => new {Id = a.Id, Name = a.Name, Description = a.Description});
+                if (this.RequestContext.RouteData.Values["version"].Equals(0))
+                {
+                    this.pictureAlbumsRepository = new InMemoryPictureAlbumRepository();
+                }
+                return this.pictureAlbumsRepository;
             }
-            return this.pictureAlbumsRepository.GetPictureAlbums();
+        }
+
+        // GET: api/PictureAlbums
+        public IQueryable<dynamic> GetPictureAlbums()
+        {
+            return this.PictureAlbumsRepository.GetPictureAlbums();
         }
 
         // GET: api/PictureAlbums/5
         [ResponseType(typeof(PictureAlbum))]
         public async Task<IHttpActionResult> GetPictureAlbum(Guid pictureAlbumId)
         {
-            var fetchTask = new Task<PictureAlbum>(() => this.pictureAlbumsRepository.GetPictureAlbum(pictureAlbumId));
+            var fetchTask = new Task<PictureAlbum>(() => this.PictureAlbumsRepository.GetPictureAlbum(pictureAlbumId));
             fetchTask.Start();
             var album = await fetchTask;
             if (album == null)
@@ -58,7 +66,7 @@ namespace ImageOrganizer.Controllers
             if (ModelState.IsValid && pictureAlbum != null)
             {
                 pictureAlbum.Id = pictureAlbumId;
-                var updateTask = new Task<Guid>(() => this.pictureAlbumsRepository.UpdatePictureAlbum(pictureAlbum));
+                var updateTask = new Task<Guid>(() => this.PictureAlbumsRepository.UpdatePictureAlbum(pictureAlbum));
                 updateTask.Start();
                 await updateTask;
             }
@@ -72,7 +80,7 @@ namespace ImageOrganizer.Controllers
         {
             if (ModelState.IsValid && pictureAlbum != null)
             {
-                var fetchTask = new Task<PictureAlbum>(() => this.pictureAlbumsRepository.GetPictureAlbum(pictureAlbumId));
+                var fetchTask = new Task<PictureAlbum>(() => this.PictureAlbumsRepository.GetPictureAlbum(pictureAlbumId));
                 fetchTask.Start();
                 var album = await fetchTask;
 
@@ -81,7 +89,7 @@ namespace ImageOrganizer.Controllers
                 album.Description = string.IsNullOrWhiteSpace(pictureAlbum.Description) ? album.Description : pictureAlbum.Description;
                 album.Tags = pictureAlbum.Tags == null ? album.Tags : pictureAlbum.Tags;
 
-                var updateTask = new Task<Guid>(() => this.pictureAlbumsRepository.UpdatePictureAlbum(pictureAlbum));
+                var updateTask = new Task<Guid>(() => this.PictureAlbumsRepository.UpdatePictureAlbum(pictureAlbum));
                 updateTask.Start();
                 await updateTask;
             }
@@ -93,7 +101,7 @@ namespace ImageOrganizer.Controllers
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PostPictureAlbum(PictureAlbum pictureAlbum)
         {
-            var addTask = new Task<Guid>(() => this.pictureAlbumsRepository.AddPictureAlbum(pictureAlbum));
+            var addTask = new Task<Guid>(() => this.PictureAlbumsRepository.AddPictureAlbum(pictureAlbum));
             addTask.Start();
             var pictureAlbumId = await addTask;
             return CreatedAtRoute("PictureAlbum", new { id = pictureAlbumId }, pictureAlbum);
@@ -103,7 +111,7 @@ namespace ImageOrganizer.Controllers
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> DeletePictureAlbum(Guid pictureAlbumId)
         {
-            var deleteTask = new Task(() => this.pictureAlbumsRepository.DeletePictureAlbum(pictureAlbumId));
+            var deleteTask = new Task(() => this.PictureAlbumsRepository.DeletePictureAlbum(pictureAlbumId));
             deleteTask.Start();
             await deleteTask;
             return StatusCode(HttpStatusCode.NoContent);

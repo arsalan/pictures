@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
   <parameter name="ImageOrganizerContext-Web.config Connection String" description="ImageOrganizerContext Connection String used in web.config by the application to access the database." defaultValue="Data Source=(localdb)\v11.0; Initial Catalog=ImageOrganizerContext-20141025111346; Integrated Security=True; MultipleActiveResultSets=True; AttachDbFilename=|DataDirectory|ImageOrganizerContext-20141025111346.mdf" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="C:\\CodeRepos\\practice_repos\\webapi_practice\\Pictures\\ImageOrganizer\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ImageOrganizerContext']/@connectionString" />
+    <parameterEntry kind="XmlFile" scope="C:\\CodeRepos\\practice_repos\\webapi_practice\\Pictures\\PictureAlbum\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ImageOrganizerContext']/@connectionString" />
   </parameter>
 </parameters>

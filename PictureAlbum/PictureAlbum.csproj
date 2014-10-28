@@ -96,8 +96,10 @@
     <Compile Include="Controllers\PictureAlbumsController.cs" />
     <Compile Include="Controllers\ImagesController.cs" />
     <Compile Include="DataStore\InMemoryDataStore.cs" />
-    <Compile Include="DataStore\InMemoryPicturealbumRepository.cs" />
+    <Compile Include="DataStore\InMemoryPictureAlbumRepository.cs" />
     <Compile Include="DataStore\IPictureAlbumsRepository.cs" />
+    <Compile Include="DataStore\Version1InMemoryPictureAlbumRepository.cs" />
+    <Compile Include="DataStore\VersionedInMemoryPictureAlbumRepository.cs" />
     <Compile Include="DependencyResolver.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

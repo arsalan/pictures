@@ -25,8 +25,12 @@ namespace ImageOrganizer.Controllers
         }
 
         // GET: api/PictureAlbums
-        public IQueryable<PictureAlbum> GetPictureAlbums()
+        public IQueryable<dynamic> GetPictureAlbums(int version = 0)
         {
+            if (version == 1)
+            {
+                return this.pictureAlbumsRepository.GetPictureAlbums().Select(a => new {Id = a.Id, Name = a.Name, Description = a.Description});
+            }
             return this.pictureAlbumsRepository.GetPictureAlbums();
         }
 

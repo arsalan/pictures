@@ -28,7 +28,7 @@ namespace ImageOrganizer.Controllers
         {
             get
             {
-                if (this.RequestContext.RouteData.Values["version"].Equals(0))
+                if (this.RequestContext.RouteData.Values["version"] == null || this.RequestContext.RouteData.Values["version"].Equals(0))
                 {
                     this.pictureAlbumsRepository = new InMemoryPictureAlbumRepository();
                 }

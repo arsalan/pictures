@@ -115,14 +115,14 @@ namespace ImageOrganizer.DataStore
             return InMemoryDataStore.PictureAlbums.FirstOrDefault(a => a.Id == pictureAlbumId);
         }
 
-        public virtual Guid AddPictureAlbum(PictureAlbum pictureAlbum)
+        public virtual Guid AddPictureAlbum(dynamic pictureAlbum)
         {
             pictureAlbum.Id = Guid.NewGuid();
             InMemoryDataStore.PictureAlbums.Add(pictureAlbum);
             return pictureAlbum.Id;
         }
 
-        public virtual Guid UpdatePictureAlbum(PictureAlbum pictureAlbum)
+        public virtual Guid UpdatePictureAlbum(dynamic pictureAlbum)
         {
             var toUpdate = InMemoryDataStore.PictureAlbums.FirstOrDefault(a => a.Id == pictureAlbum.Id);
             if (toUpdate != null)

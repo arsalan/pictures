@@ -28,7 +28,7 @@ namespace ImageOrganizer.Controllers
         {
             get
             {
-                if (this.RequestContext.RouteData.Values["version"].Equals(0))
+                if (this.RequestContext.RouteData.Values["version"] == null || this.RequestContext.RouteData.Values["version"].Equals(0))
                 {
                     this.pictureAlbumsRepository = new InMemoryPictureAlbumRepository();
                 }
@@ -37,9 +37,9 @@ namespace ImageOrganizer.Controllers
         }
 
         // GET: api/PictureAlbums
-        public IQueryable<dynamic> GetPictureAlbums()
+        public IList<dynamic> GetPictureAlbums()
         {
-            return this.PictureAlbumsRepository.GetPictureAlbums();
+            return this.PictureAlbumsRepository.GetPictureAlbums().ToList();
         }
 
         // GET: api/PictureAlbums/5

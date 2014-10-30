@@ -16,8 +16,8 @@ namespace ImageOrganizer.DataStore
 
         IQueryable<dynamic> GetPictureAlbums(string name = "", ICollection<string> tags = null);
         dynamic GetPictureAlbum(Guid pictureAlbumId);
-        Guid AddPictureAlbum(PictureAlbum pictureAlbum);
-        Guid UpdatePictureAlbum(PictureAlbum pictureAlbum);
+        Guid AddPictureAlbum(dynamic pictureAlbum);
+        Guid UpdatePictureAlbum(dynamic pictureAlbum);
         void DeletePictureAlbum(Guid pictureAlbumId);
     }
 }

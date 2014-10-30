@@ -13,9 +13,9 @@ namespace ImageOrganizer.DataStore
             return base.AddPicture(pictureAlbumId, picture);
         }
 
-        public override Guid AddPictureAlbum(PictureAlbum pictureAlbum)
+        public override Guid AddPictureAlbum(dynamic pictureAlbum)
         {
-            return base.AddPictureAlbum(pictureAlbum);
+            return base.AddPictureAlbum(pictureAlbum as PictureAlbum);
         }
 
         public override void DeletePicture(Guid pictureAlbumId, Guid pictureId)
@@ -36,13 +36,13 @@ namespace ImageOrganizer.DataStore
         public override dynamic GetPictureAlbum(Guid pictureAlbumId)
         {
             var album = base.GetPictureAlbum(pictureAlbumId) as PictureAlbum;
-            return new { Id = album.Id, Name = album.Name, Description = album.Description };
+            return new PictureAlbumV1 { Id = album.Id, Name = album.Name, Description = album.Description };
         }
 
         public override IQueryable<dynamic> GetPictureAlbums(string name = "", ICollection<string> tags = null)
         {
             var albums = base.GetPictureAlbums() as IQueryable<PictureAlbum>;
-            return albums.Select(a => new {Id = a.Id, Name = a.Name, Description = a.Description});
+            return albums.Select(a => new PictureAlbumV1 {Id = a.Id, Name = a.Name, Description = a.Description});
         }
 
         public override IQueryable<Picture> GetPictures(Guid pictureAlbumId)
@@ -55,9 +55,13 @@ namespace ImageOrganizer.DataStore
             return base.UpdatePicture(pictureAlbumId, picture);
         }
 
-        public override Guid UpdatePictureAlbum(PictureAlbum pictureAlbum)
+        public override Guid UpdatePictureAlbum(dynamic pictureAlbum)
         {
-            return base.UpdatePictureAlbum(pictureAlbum);
+            var standardizedAlbum = new PictureAlbum();
+            standardizedAlbum.Id = pictureAlbum.Id;
+            standardizedAlbum.Name = pictureAlbum.Name;
+            standardizedAlbum.Description = pictureAlbum.Description;
+            return base.UpdatePictureAlbum(standardizedAlbum);
         }
     }
 }

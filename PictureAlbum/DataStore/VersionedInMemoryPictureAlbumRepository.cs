@@ -61,12 +61,12 @@ namespace ImageOrganizer.DataStore
             return this.decoratedInMemoyRepository.GetPictureAlbum(pictureAlbumId);
         }
 
-        public Guid AddPictureAlbum(PictureAlbum pictureAlbum)
+        public Guid AddPictureAlbum(dynamic pictureAlbum)
         {
             return this.decoratedInMemoyRepository.AddPictureAlbum(pictureAlbum);
         }
 
-        public Guid UpdatePictureAlbum(PictureAlbum pictureAlbum)
+        public Guid UpdatePictureAlbum(dynamic pictureAlbum)
         {
             return this.decoratedInMemoyRepository.UpdatePictureAlbum(pictureAlbum);
         }
